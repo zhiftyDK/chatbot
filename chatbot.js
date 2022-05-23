@@ -9653,9 +9653,22 @@ function checkFileExist(urlToFile) {
 }
 
 //Chatbot class
+let modelFile;
+let intentsFile;
 class chatBot {
+    constructor(model, intents) {
+        if(checkFileExist(model) == true) {
+            modelFile = model;
+        }
+        if(checkFileExist(intents) == true) {
+            intentsFile = intents;
+        } else {
+            console.error("Missing intents.json file!")
+        }
+    }
+
     train() {
-        fetch("./intents.json")
+        fetch(intentsFile)
         .then(response => response.json())
         .then(data => {
             const intents = data.intents;
@@ -9738,8 +9751,8 @@ class chatBot {
             });
             
             //If existing model then train untop of this model
-            if(checkFileExist("./model.json") == true){
-                fetch("./model.json")
+            if(checkFileExist(modelFile) == true){
+                fetch(modelFile)
                 .then(response => response.json())
                 .then(data => {
                     net.fromJSON(data);
@@ -9762,7 +9775,7 @@ class chatBot {
 
     //Constructor for running the neural network
     run(input) {
-        fetch("./intents.json")
+        fetch(intentsFile)
         .then(response => response.json())
         .then(intentsData => {
             const intents = intentsData.intents;
@@ -9796,7 +9809,7 @@ class chatBot {
             console.log(all_words);
             let bag = bag_of_words(pattern_sentence, all_words);
             console.log(bag);
-            fetch("./model.json")
+            fetch(modelFile)
             .then(response => response.json())
             .then(modelData => {
                 const net = new brain.NeuralNetwork();
