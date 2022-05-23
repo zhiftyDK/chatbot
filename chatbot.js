@@ -9777,54 +9777,64 @@ class chatBot {
 
     //Constructor for running the neural network
     run(input) {
-        //TODO: promise and return sentence from tag
-        fetch(intentsFile)
-        .then(response => response.json())
-        .then(intentsData => {
-            const intents = intentsData.intents;
-
-            // loop through each sentence in our intents patterns
-            let all_words = [];
-            intents.forEach(intent => {
-                intent.patterns.forEach(pattern => {
-                    // tokenize each word in the sentence
-                    let w = tokenize(pattern);
-                    // add to our words list
-                    all_words = all_words.concat(w);
-                });
-            });
-
-            // stem and lower each word
-            let ignore_words = ["?", ".", "!"];
-            let temp = [];
-            all_words.forEach(w => {
-                if(!ignore_words.includes(w)){
-                    temp.push(stemmer(w).toLowerCase());
-                }
-            });
-            all_words = temp;
-
-            // remove duplicates and sort
-            all_words = [...new Set(all_words.sort())];
-
-            let pattern_sentence = tokenize(input);
-            console.log(pattern_sentence)
-            console.log(all_words);
-            let bag = bag_of_words(pattern_sentence, all_words);
-            console.log(bag);
-            fetch(modelFile)
+        return new Promise(
+        function(resolve, reject) {
+            fetch(intentsFile)
             .then(response => response.json())
-            .then(modelData => {
-                const net = new brain.NeuralNetwork();
-                net.fromJSON(modelData);
-                const output = net.run(bag);
-                console.log(output);
-                for (let j = 0; j < intents.length; j++) {               
-                    if(j == output.indexOf(Math.max(...output))) {
-                        console.log(intents[j].tag);
+            .then(intentsData => {
+                const intents = intentsData.intents;
+    
+                // loop through each sentence in our intents patterns
+                let all_words = [];
+                intents.forEach(intent => {
+                    intent.patterns.forEach(pattern => {
+                        // tokenize each word in the sentence
+                        let w = tokenize(pattern);
+                        // add to our words list
+                        all_words = all_words.concat(w);
+                    });
+                });
+    
+                // stem and lower each word
+                let ignore_words = ["?", ".", "!"];
+                let temp = [];
+                all_words.forEach(w => {
+                    if(!ignore_words.includes(w)){
+                        temp.push(stemmer(w).toLowerCase());
                     }
-                }
-                
+                });
+                all_words = temp;
+    
+                // remove duplicates and sort
+                all_words = [...new Set(all_words.sort())];
+    
+                let pattern_sentence = tokenize(input);
+                console.log(pattern_sentence)
+                console.log(all_words);
+                let bag = bag_of_words(pattern_sentence, all_words);
+                console.log(bag);
+                fetch(modelFile)
+                .then(response => response.json())
+                .then(modelData => {
+                    const net = new brain.NeuralNetwork();
+                    net.fromJSON(modelData);
+                    const output = net.run(bag);
+                    console.log(output);
+                    for (let j = 0; j < intents.length; j++) {               
+                        if(j == output.indexOf(Math.max(...output))) {
+                            console.log(intents[j].tag);
+                            fetch(intentsFile)
+                            .then(response => response.json())
+                            .then(data => {
+                                const intents = data.intents
+                                intents.forEach(element => {
+                                    console.log(element.responses[Math.floor(Math.random() * arr.length)]);
+                                });
+                            });
+                        }
+                    }
+                    
+                });
             });
         });
     }
