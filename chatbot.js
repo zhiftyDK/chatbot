@@ -9820,16 +9820,13 @@ class chatBot {
                     net.fromJSON(modelData);
                     const output = net.run(bag);
                     console.log(output);
-                    for (let j = 0; j < intents.length; j++) {               
-                        if(j == output.indexOf(Math.max(...output))) {
-                            console.log(intents[j].tag);
-                            fetch(intentsFile)
-                            .then(response => response.json())
-                            .then(data => {
-                                const intents = data.intents
-                                intents.forEach(element => {
-                                    console.log(element.responses[Math.floor(Math.random() * arr.length)]);
-                                });
+                    for (let i = 0; i < intents.length; i++) {               
+                        if(i == output.indexOf(Math.max(...output))) {
+                            console.log(intents[i].tag);
+                            intents.forEach(intent => {
+                                if(intents[i].tag == intent.tag){
+                                    resolve(intent.responses[Math.floor(Math.random() * intent.responses.length)]);
+                                }
                             });
                         }
                     }

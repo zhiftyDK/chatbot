@@ -21,7 +21,9 @@ bot.train(); // When training is done model.json file will be downloaded
 Example: How to run your model after training
 ```JS
 const bot = new chatBot("./intents.json", "./model.json");
-bot.run("How are you?"); // Greeting response sentence
+bot.run("How are you?").then((response) => {
+    console.log(response); //Greeting response
+});
 ```
 
 Create `intents.json` file and format the intents like this:
