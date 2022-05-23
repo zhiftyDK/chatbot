@@ -8,19 +8,19 @@ Include the library in your `.html` file
 ### How to use
 Example: How to train your neural network from intents
 ```JS
-const bot = new chatBot("./intents.js");
+const bot = new chatBot("./intents.json");
 bot.train();
 ```
 
 Example: How to train your neural network from new intents untop of your current model
 ```JS
-const bot = new chatBot("./intents.js", "./model.js");
+const bot = new chatBot("./intents.json", "./model.json");
 bot.train(); // When training is done model.json file will be downloaded
 ```
 
 Example: How to run your model after training
 ```JS
-const bot = new chatBot("./intents.js", "./model.js");
+const bot = new chatBot("./intents.json", "./model.json");
 bot.run("How are you?"); // Greeting response sentence
 ```
 
