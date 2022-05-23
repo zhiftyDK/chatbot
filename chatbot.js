@@ -9656,6 +9656,7 @@ function checkFileExist(urlToFile) {
 let intentsFile;
 let modelFile;
 class chatBot {
+    //Main constructor for getting intent and model files
     constructor(intents, model) {
         if(checkFileExist(model) == true) {
             modelFile = model;
@@ -9667,6 +9668,7 @@ class chatBot {
         }
     }
 
+    //Constructor for training the neural network
     train() {
         fetch(intentsFile)
         .then(response => response.json())
