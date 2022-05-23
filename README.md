@@ -1,3 +1,5 @@
+##Chatbot.js the neural network javascript library
+
 ### Get Started
 Include the library in your `.html` file
 ```JS
@@ -5,16 +7,22 @@ Include the library in your `.html` file
 ```
 
 ### How to use
-Example: How to train upon your intents
+Example: How to train your neural network from intents
 ```JS
-const bot = new chatBot();
+const bot = new chatBot("./intents.js");
 bot.train();
+```
+
+Example: How to train your neural network from new intents untop of your current model
+```JS
+const bot = new chatBot("./intents.js", "./model.js");
+bot.train(); // When training is done model.json file will be downloaded
 ```
 
 Example: How to run your model after training
 ```JS
-const bot = new chatBot();
-bot.run();
+const bot = new chatBot("./intents.js", "./model.js");
+bot.run("How are you?"); // Greeting response sentence
 ```
 
 Create `intents.json` file and format the intents like this:
