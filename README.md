@@ -1,5 +1,4 @@
-##Chatbot.js the neural network javascript library
-
+## chatbot.js the neural network chatbot library
 ### Get Started
 Include the library in your `.html` file
 ```JS
