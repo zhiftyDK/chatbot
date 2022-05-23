@@ -1,7 +1,7 @@
 ### Get Started
 Include the library in your `.html` file
 ```JS
-<script src="https://zhiftydk.github.io/chatbot/chatbot.js"></script>
+<script src="//zhiftydk.github.io/chatbot/chatbot.js"></script>
 ```
 
 ### How to use
