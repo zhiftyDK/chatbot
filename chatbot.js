@@ -9660,6 +9660,8 @@ class chatBot {
     constructor(intents, model) {
         if(checkFileExist(model) == true) {
             modelFile = model;
+        } else {
+            console.error("Missing model.json file, you can still train the neural net!")
         }
         if(checkFileExist(intents) == true) {
             intentsFile = intents;
