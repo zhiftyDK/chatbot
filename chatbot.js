@@ -9718,6 +9718,7 @@ class chatBot {
             let input = [];
             let output = [];
             let tempOutputOneHot = [];
+            
             // For output were gonna use one-hot encoding
             for (let i = 0; i < intents.length; i++) {
                 const element = intents[i];

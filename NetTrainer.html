@@ -7,8 +7,16 @@
     <title>NetTrainer</title>
 </head>
 <body>
+    <input type="text" id="input1">
     <button onclick="trainBOT()">Button</button>
 
-    <script src="./script.js"></script>
+    <script src="./chatbot.js"></script>
+    <script>
+        function trainBOT(){
+            const input = document.getElementById("input1");
+            const bot = new chatBot("intents.json", "model.json");
+            bot.run(input.value);
+        }
+    </script>
 </body>
 </html>
