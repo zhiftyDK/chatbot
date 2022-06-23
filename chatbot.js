@@ -9660,18 +9660,17 @@ class chatBot {
     constructor(intents, model) {
         if(checkFileExist(model) == true) {
             modelFile = model;
-        } else {
-            console.error("Missing model.json file, you can still train the neural net!")
         }
         if(checkFileExist(intents) == true) {
             intentsFile = intents;
-        } else {
-            console.error("Missing intents.json file!")
         }
     }
 
     //Constructor for training the neural network
     train() {
+        if(checkFileExist(intentsFile) == false) {
+            reject("Missing intents.json file!");
+        }
         fetch(intentsFile)
         .then(response => response.json())
         .then(data => {
@@ -9782,6 +9781,10 @@ class chatBot {
     run(input) {
         return new Promise(
         function(resolve, reject) {
+            if(checkFileExist(intentsFile) == false && checkFileExist(modelFile) == false) {
+                console.error("Missing intents.json & model.json file!");
+                reject("Missing intents.json & model.json file!");
+            }
             fetch(intentsFile)
             .then(response => response.json())
             .then(intentsData => {
