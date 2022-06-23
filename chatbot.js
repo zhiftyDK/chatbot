@@ -9669,7 +9669,7 @@ class chatBot {
     //Constructor for training the neural network
     train() {
         if(checkFileExist(intentsFile) == false) {
-            reject("Missing intents.json file!");
+            console.error("Missing intents.json file!");
         }
         fetch(intentsFile)
         .then(response => response.json())
