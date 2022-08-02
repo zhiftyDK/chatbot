@@ -9764,9 +9764,7 @@ class chatBot {
             }
 
             //Train model
-            net.train(trainingData, {
-                log: true
-            });
+            net.train(trainingData);
             const trainedModel = net.toJSON();
             const blob = new Blob([JSON.stringify(trainedModel)], {type: 'application/json'});
             const url = URL.createObjectURL(blob);
@@ -9831,7 +9829,12 @@ class chatBot {
                             console.log(intents[i].tag);
                             intents.forEach(intent => {
                                 if(intents[i].tag == intent.tag){
-                                    resolve(intent.responses[Math.floor(Math.random() * intent.responses.length)]);
+                                    const response = {
+                                        tag: intents[i].tag,
+                                        responses: intents[i].responses,
+                                        rnd_response: intent.responses[Math.floor(Math.random() * intent.responses.length)],
+                                    };
+                                    resolve(response);
                                 }
                             });
                         }
