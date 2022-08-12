@@ -9829,7 +9829,6 @@ class chatBot {
                             console.log(intents[i].tag);
                             intents.forEach(intent => {
                                 if(intents[i].tag == intent.tag){
-                                    console.log(intent);
                                     const response = {
                                         tag: intents[i].tag,
                                         trigger: intent.trigger,
