@@ -9831,6 +9831,7 @@ class chatBot {
                                 if(intents[i].tag == intent.tag){
                                     const response = {
                                         tag: intents[i].tag,
+                                        trigger: intents.trigger,
                                         responses: intents[i].responses,
                                         rnd_response: intent.responses[Math.floor(Math.random() * intent.responses.length)],
                                     };

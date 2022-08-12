@@ -32,6 +32,7 @@ Create `intents.json` file and format the intents like this:
   "intents": [
     {
       "tag": "greeting",
+      "trigger": false,
       "patterns": [
         "Hi",
         "Hey",
